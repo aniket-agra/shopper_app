@@ -22,8 +22,13 @@ let data = [
   }
 ];
 
-function ProductCard({ productData, orderedQuantity, updateQuantity, addToCart }) {
+function ProductCard({ productData, addToCart }) {
   console.log(productData);
+  const [quantity, setQuantity] = useState(0);
+
+  function updateQuantity(e) {
+    setQuantity(e.target.value);
+  }
   return (
     <div>
       <h2>{productData.title}</h2>
@@ -32,10 +37,13 @@ function ProductCard({ productData, orderedQuantity, updateQuantity, addToCart }
       <label>Quantity: </label>
       <input 
         type = "number"
-        value = {orderedQuantity}
+        value = {quantity}
         onChange = {updateQuantity}
       />
-      <button onClick = {() => addToCart(productData.id)}>Add to cart</button>
+      <button onClick = {() => {
+        addToCart(productData.id, quantity);
+        setQuantity(0);
+      }}>Add to cart</button>
 
     </div>
   )
@@ -43,18 +51,13 @@ function ProductCard({ productData, orderedQuantity, updateQuantity, addToCart }
 
 function ShoppingCart() {
 
-  const [quantity, setQuantity] = useState(0);
   const [quantities, setQuantities] = useState({});
 
   console.log(quantities);
 
-  const updateQuantity = function (e) {
-    setQuantity(e.target.value);
-  }
-
-  const addToCart = function (id) {
+  const addToCart = function (id, addQuantity) {
     let newQuantities = {...quantities};
-    newQuantities[id] = quantity;
+    newQuantities[id] = addQuantity;
     setQuantities(newQuantities);
   }
 
@@ -62,8 +65,6 @@ function ShoppingCart() {
     <>
       <ProductCard 
         productData = {data[1]} 
-        orderedQuantity = {quantity} 
-        updateQuantity = {updateQuantity}
         addToCart = {addToCart}
       />
     </>
