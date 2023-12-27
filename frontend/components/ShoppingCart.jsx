@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProductCard } from "./ProductCard";
 
-function ShoppingCart( { data }) {
+function ShoppingCart({ data }) {
     const [quantities, setQuantities] = useState({});
   
     console.log(quantities);
