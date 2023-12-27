@@ -63,10 +63,11 @@ function ShoppingCart() {
 
   return (
     <>
-      <ProductCard 
-        productData = {data[1]} 
-        addToCart = {addToCart}
-      />
+      {
+        data.map(
+          product => <ProductCard productData = {product} addToCart = {addToCart} key = {product.id}/>
+        )
+      }
     </>
   )
 }
