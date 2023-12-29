@@ -26,9 +26,19 @@ let data = [
 
 let shoppingCart = [];
 
-app.get("/api/products", (request, response) => {
+app.get("/api/products", function (request, response) {
     response.json(data);
 })
+
+app.get("/api/cart", (request, response) => {
+    response.json(shoppingCart);
+})
+
+app.post("/api/cart", (request, response) => {
+    const addedProduct = request.body;
+    shoppingCart = shoppingCart.concat(addedProduct);
+    response.json(shoppingCart);
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`running server on port ${PORT}`));
