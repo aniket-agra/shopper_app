@@ -2,7 +2,7 @@ import axios from "axios";
 import { ProductCard } from "./ProductCard";
 import { useEffect, useState } from "react";
 
-function ProductList() {
+function ProductList({ changeView }) {
     const [products, setProducts] = useState([]);
 
     useEffect(
@@ -20,6 +20,7 @@ function ProductList() {
                     <ProductCard productData = {product} key = {product.id} />
                 )
             }
+            <button onClick = {changeView}>View Cart</button>
         </div>
     )
 }

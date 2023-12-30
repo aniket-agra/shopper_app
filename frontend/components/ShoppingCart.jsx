@@ -1,24 +1,10 @@
-import { useState } from "react";
-import { ProductCard } from "./ProductCard";
+import { useEffect } from "react";
 
-function ShoppingCart({ data }) {
-    const [quantities, setQuantities] = useState({});
-  
-    console.log(quantities);
-  
-    const addToCart = function (id, addQuantity) {
-      let newQuantities = {...quantities};
-      newQuantities[id] = addQuantity;
-      setQuantities(newQuantities);
-    }
-  
+function ShoppingCart({ changeView }) {
+    
     return (
       <>
-        {
-          data.map(
-            product => <ProductCard productData = {product} addToCart = {addToCart} key = {product.id}/>
-          )
-        }
+        <button onClick = { changeView }>View Products</button>
       </>
     )
 }
