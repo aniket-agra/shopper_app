@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
+function CartItemCard( { cartItem }) {
+  return (
+    <>
+      <p>Product Name: {cartItem.title}</p>
+      <p>Quantity Ordered: {cartItem.quantity}</p>
+    </>
+  );  
+}
+
 function ShoppingCart({ changeView }) {
 
   const [cartItems, setCartItems] = useState([]);
@@ -16,7 +26,7 @@ function ShoppingCart({ changeView }) {
     <>
         {
           cartItems.map(item => {
-            return <li key = {item.id}>Item ID: {item.id} Item Quantity: {item.quantity}</li>
+            return <CartItemCard key = {item.id} cartItem = { item } />
           })
         }
       <button onClick = { changeView }>View Products</button>
