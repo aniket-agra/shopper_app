@@ -16,9 +16,9 @@ function ProductList() {
     return (
         <div>
             {
-                products.map(product => <li key = {product.id}>
-                    <ProductCard productData = {product} addToCart = { () => console.log(product)} />
-                </li>)
+                products.map(product => 
+                    <ProductCard productData = {product} key = {product.id} />
+                )
             }
         </div>
     )
