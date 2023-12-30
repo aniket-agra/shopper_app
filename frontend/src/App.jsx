@@ -1,5 +1,6 @@
 import { ShoppingCart } from "../components/ShoppingCart";
 import { ProductList } from "../components/ProductList";
+import { useState } from "react";
 
 let data = [
   {
@@ -23,12 +24,28 @@ let data = [
 ];
 
 function App () {
-  return (
-    <>
-      {/* <ShoppingCart data = {data} /> */}
-      <ProductList />
-    </>
-  )
+
+  const [viewList, setViewList] = useState(true);
+
+  const viewCart = function () {
+    setViewList(!viewList);
+  }
+
+  if (viewList) {
+    return (
+      <>
+        <ProductList switchToCart = { viewCart }/>
+      </>
+    )
+  }
+  else {
+    return (
+      <>
+        <ShoppingCart switchToCart = { viewCart }/>  
+      </>
+    )
+  }
+  
 }
 
 export {App};
