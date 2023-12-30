@@ -39,6 +39,7 @@ app.get("/api/cart", (request, response) => {
     let responseItem = {};
     responseItem["title"] = dataItem[0].title;
     responseItem["price"] = dataItem[0].price;
+    responseItem["id"] = dataItem[0].id;
     responseItem["quantity"] = item.quantity;
     return responseItem;
   });
