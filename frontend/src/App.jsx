@@ -27,21 +27,21 @@ function App () {
 
   const [viewList, setViewList] = useState(true);
 
-  const viewCart = function () {
+  const changeView = function () {
     setViewList(!viewList);
   }
 
   if (viewList) {
     return (
       <>
-        <ProductList switchToCart = { viewCart }/>
+        <ProductList changeView = { changeView }/>
       </>
     )
   }
   else {
     return (
       <>
-        <ShoppingCart switchToCart = { viewCart }/>  
+        <ShoppingCart changeView = { changeView }/>  
       </>
     )
   }
