@@ -30,17 +30,25 @@ let data = [
 let shoppingCart = [];
 
 app.get("/api/products", function (request, response) {
-    response.json(data);
+  response.json(data);
 })
 
 app.get("/api/cart", (request, response) => {
-    response.json(shoppingCart);
+  let responseData = shoppingCart.map(item => {
+    let dataItem = data.filter(element => element.id === item.id);
+    let responseItem = {};
+    responseItem["title"] = dataItem[0].title;
+    responseItem["price"] = dataItem[0].price;
+    responseItem["quantity"] = item.quantity;
+    return responseItem;
+  });
+  response.json(responseData);
 })
 
 app.post("/api/cart", (request, response) => {
-    const addedProduct = request.body;
-    shoppingCart = shoppingCart.concat(addedProduct);
-    response.json(shoppingCart);
+  const addedProduct = request.body;
+  shoppingCart = shoppingCart.concat(addedProduct);
+  response.json(shoppingCart);
 });
 
 const PORT = process.env.PORT || 3001;
