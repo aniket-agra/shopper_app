@@ -12,26 +12,16 @@ function ShoppingCart({ changeView }) {
       });
   }, []);
 
-  if (cartItems.length > 0) {
-    return (
-      <>
-          {
-            cartItems.map(item => {
-              return <li key = {item.id}>Item ID: {item.id} Item Quantity: {item.quantity}</li>
-            })
-          }
-        <button onClick = { changeView }>View Products</button>
-      </>
-    )
-  }
-  else {
-    return (
-      <>
-        <button onClick = { changeView }>View Products</button>
-      </>
-    )
-  }
-  
+  return (
+    <>
+        {
+          cartItems.map(item => {
+            return <li key = {item.id}>Item ID: {item.id} Item Quantity: {item.quantity}</li>
+          })
+        }
+      <button onClick = { changeView }>View Products</button>
+    </>
+  )  
 }
 
 export {ShoppingCart}
