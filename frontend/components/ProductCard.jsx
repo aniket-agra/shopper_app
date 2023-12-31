@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { addItemToCart } from "../services/productServices";
 
 function ProductCard({ productData }) {
     console.log(productData);
@@ -15,9 +15,7 @@ function ProductCard({ productData }) {
         quantity : quantity
       };
 
-      axios
-        .post("http://localhost:3001/api/cart", newOrder)
-        .then(response => console.log(response))
+      addItemToCart(newOrder)
         .then(setQuantity(0));
     }
 

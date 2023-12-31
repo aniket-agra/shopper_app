@@ -1,15 +1,13 @@
-import axios from "axios";
 import { ProductCard } from "./ProductCard";
 import { useEffect, useState } from "react";
+import { getAllProducts } from "../services/productServices";
 
 function ProductList({ changeView }) {
     const [products, setProducts] = useState([]);
 
     useEffect(
         function () {
-            axios
-                .get("http://localhost:3001/api/products")
-                .then(response => setProducts(response.data));
+            getAllProducts().then(data => setProducts(data));
         }, []
     );
 

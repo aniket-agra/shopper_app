@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { getCart } from "../services/productServices";
 
 function CartItemCard( { cartItem }) {
   return (
@@ -15,13 +14,11 @@ function CartItemCard( { cartItem }) {
 function ShoppingCart({ changeView }) {
 
   const [cartItems, setCartItems] = useState([]);
-  useEffect(function () {
-    axios
-      .get("http://localhost:3001/api/cart")
-      .then(response => {
-        setCartItems(response.data);
-      });
-  }, []);
+  useEffect(
+    function () {
+      getCart().then(data => setCartItems(data));
+    }, []
+  );
 
   return (
     <>
