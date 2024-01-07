@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const Product = require("./models/product");
 
 const app = express();
 
@@ -31,7 +33,9 @@ let data = [
 let shoppingCart = [];
 
 app.get("/api/products", function (request, response) {
-  response.json(data);
+  Product.find({}).then(result => {
+    response.json(result);
+  });
 })
 
 app.get("/api/cart", (request, response) => {
