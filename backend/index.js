@@ -1,36 +1,13 @@
 require("dotenv").config();
+const Product = require("./models/product");
+const CartItem = require("./models/cart");
 const express = require("express");
 const cors = require("cors");
-const Product = require("./models/product");
-
 const app = express();
 
 app.use(express.json());
 app.use(express.static("dist"));
 app.use(cors());
-
-let data = [
-  {
-    id : 1,
-    title : "Lectures on Physics",
-    details : "Richard Feynman talks about classical physics",
-    price: "100$"
-  },
-  {
-    id : 2,
-    title : "Relativity: The special and general theory",
-    details : "Albert Einstein talks about relativity",
-    price : "20$"
-  },
-  {
-    id : 3,
-    title : "The large-scale structure of spacetime",
-    details : "Hawking and Penrose talk about spacetime",
-    price : "50$"
-  }
-];
-
-let shoppingCart = [];
 
 app.get("/api/products", function (request, response) {
   Product.find({}).then(result => {
@@ -39,22 +16,33 @@ app.get("/api/products", function (request, response) {
 })
 
 app.get("/api/cart", (request, response) => {
-  let responseData = shoppingCart.map(item => {
-    let dataItem = data.filter(element => element.id === item.id);
-    let responseItem = {};
-    responseItem["title"] = dataItem[0].title;
-    responseItem["price"] = dataItem[0].price;
-    responseItem["id"] = dataItem[0].id;
-    responseItem["quantity"] = item.quantity;
-    return responseItem;
+  CartItem.find({}).then(result => {
+    console.log(result);
+    // let responseData = result.map(resultItem => {
+    //   Product.findById(resultItem.productId).then(product => {
+    //     console.log(product);
+    //     let responseItem = {
+    //       "title" : product.title,
+    //       "price" : product.price,
+    //       "id" : product.id,
+    //       "quantity" : resultItem.quantity
+    //     };
+    //     return responseItem;
+    //   });
+    // });
+    response.json(responseData);
   });
-  response.json(responseData);
 })
 
 app.post("/api/cart", (request, response) => {
   const addedProduct = request.body;
-  shoppingCart = shoppingCart.concat(addedProduct);
-  response.json(shoppingCart);
+  let newItem = new CartItem({
+    productId : addedProduct.id,
+    quantity : addedProduct.quantity
+  });
+  newItem.save().then(result => {
+    response.json(result);
+  });
 });
 
 const PORT = process.env.PORT || 3001;

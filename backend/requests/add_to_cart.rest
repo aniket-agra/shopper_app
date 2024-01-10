@@ -2,6 +2,6 @@ POST http://localhost:3001/api/cart
 Content-Type: application/json
 
 {
-    "id" : 1,
-    "quantity" : 2
+    "id" : "659a59db572087153011e1bb",
+    "quantity" : "2"
 }
