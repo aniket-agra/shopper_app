@@ -18,19 +18,18 @@ app.get("/api/products", function (request, response) {
 app.get("/api/cart", (request, response) => {
   CartItem.find({}).then(result => {
     console.log(result);
-    // let responseData = result.map(resultItem => {
-    //   Product.findById(resultItem.productId).then(product => {
-    //     console.log(product);
-    //     let responseItem = {
-    //       "title" : product.title,
-    //       "price" : product.price,
-    //       "id" : product.id,
-    //       "quantity" : resultItem.quantity
-    //     };
-    //     return responseItem;
-    //   });
-    // });
-    response.json(responseData);
+    let responseData = result.map(resultItem => {
+      return Product.findById(resultItem.productId).then(product => {
+        let responseItem = {
+          "title" : product.title,
+          "price" : product.price,
+          "id" : product.id,
+          "quantity" : resultItem.quantity
+        };
+        return responseItem;
+      });
+    });
+    Promise.all(responseData).then(values => response.json(values));
   });
 })
 
